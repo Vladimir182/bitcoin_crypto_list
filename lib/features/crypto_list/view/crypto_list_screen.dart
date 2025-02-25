@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:crypto_coins_list/features/crypto_list/widgets/widgets.dart';
 
 class CryptoListScreen extends StatefulWidget {
   const CryptoListScreen({super.key});
@@ -11,7 +11,6 @@ class CryptoListScreen extends StatefulWidget {
 class _CryptoListScreenState extends State<CryptoListScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Theme.of(context).colorScheme.onPrimaryFixedVariant,
@@ -22,15 +21,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
         separatorBuilder: (context, index) => const Divider(),
         itemBuilder: (context, index) {
           const coinName = 'Bitcoin';
-          return ListTile(
-            leading: SvgPicture.asset('assets/svg/bitcoin.svg'),
-            title: Text(coinName, style: theme.textTheme.bodyMedium),
-            subtitle: Text('20000\$', style: theme.textTheme.labelSmall),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.of(context).pushNamed('/coin', arguments: coinName);
-            },
-          );
+          return const CryptoCoinTile(coinName: coinName);
         },
       ),
       // floatingActionButton: FloatingActionButton(
