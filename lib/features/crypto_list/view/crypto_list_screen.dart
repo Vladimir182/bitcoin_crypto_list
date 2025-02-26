@@ -54,7 +54,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
   }
 
   Future<void> _loadCriptoCoinsList() async {
-    _criptoCoinsList = await GetIt.I<CryptoCoinsRepository>().getCoinsList();
+    _criptoCoinsList = await GetIt.I<AbstractCoinsRepository>().getCoinsList();
     setState(() {});
   }
 }

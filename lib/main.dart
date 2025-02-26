@@ -5,6 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'repositories/crypto_coins/crypto_coins.dart';
 
 void main() {
-  GetIt.I.registerLazySingleton(() => CryptoCoinsRepository(dio: Dio()));
+  GetIt.I.registerLazySingleton<AbstractCoinsRepository>(
+    () => CryptoCoinsRepository(dio: Dio()),
+  );
   runApp(const CryptoCurrenciesListApp());
 }
