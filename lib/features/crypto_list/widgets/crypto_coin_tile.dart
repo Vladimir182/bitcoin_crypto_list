@@ -13,12 +13,12 @@ class CryptoCoinTile extends StatelessWidget {
       leading: Image.network(coin.image),
       title: Text(coin.name, style: theme.textTheme.bodyMedium),
       subtitle: Text(
-        '${coin.priceInUSD} \$',
+        '${coin.priceInUSD.toStringAsFixed(2)} \$',
         style: theme.textTheme.labelSmall,
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
-        Navigator.of(context).pushNamed('/coin', arguments: coin);
+        Navigator.of(context).pushNamed('/coin', arguments: coin.name);
       },
     );
   }

@@ -16,6 +16,7 @@ final theme = ThemeData(
     ),
   ),
   appBarTheme: AppBarTheme(
+    elevation: 0,
     backgroundColor: const Color.fromARGB(255, 39, 37, 37),
     titleTextStyle: TextStyle(
       color: Colors.white,

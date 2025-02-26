@@ -1,6 +1,5 @@
-import 'package:crypto_coins_list/repositories/crypto_coins/crypto_coins_repository.dart';
-import 'package:crypto_coins_list/repositories/crypto_coins/model/crypto_coin.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_coins_list/repositories/crypto_coins/crypto_coins.dart';
 import 'package:crypto_coins_list/features/crypto_list/widgets/widgets.dart';
 
 class CryptoListScreen extends StatefulWidget {
@@ -14,6 +13,12 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
   List<CryptoCoin>? _criptoCoinsList;
 
   @override
+  void initState() {
+    _loadCriptoCoinsList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -22,8 +27,14 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
       ),
       body:
           (_criptoCoinsList == null)
-              ? SizedBox()
+              ? Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.yellow,
+                  color: Colors.blue,
+                ),
+              )
               : ListView.separated(
+                padding: EdgeInsets.only(top: 20),
                 itemCount: _criptoCoinsList!.length,
                 separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context, index) {
@@ -31,14 +42,18 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                   return CryptoCoinTile(coin: coinName);
                 },
               ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          _criptoCoinsList = await CryptoCoinsRepository().getCoinsList();
-          setState(() {});
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     setState(() {});
+      //   },
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ),
     );
+  }
+
+  Future<void> _loadCriptoCoinsList() async {
+    _criptoCoinsList = await CryptoCoinsRepository().getCoinsList();
+    setState(() {});
   }
 }
