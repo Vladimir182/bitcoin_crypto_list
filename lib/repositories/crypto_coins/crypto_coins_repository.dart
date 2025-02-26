@@ -8,10 +8,14 @@ const String _cryptoCurrencies =
     'BTC,ETH,BNB,ADA,SOL,XRP,DOT,DOGE,AVAX,LTC,LINK,BCH,XLM,UNI,LUNA,ALGO,MATIC,VET,ATOM,XTZ';
 
 class CryptoCoinsRepository implements AbstractCoinsRepository {
+  CryptoCoinsRepository({required this.dio});
+
+  final Dio dio;
+
   @override
   Future<List<CryptoCoin>> getCoinsList() async {
     try {
-      final response = await Dio().get(
+      final response = await dio.get(
         '$_baseUrl/data/pricemultifull?fsyms=$_cryptoCurrencies&tsyms=USD',
       );
       // final data = response.data as Map<String, dynamic>;
