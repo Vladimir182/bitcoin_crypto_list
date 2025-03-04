@@ -32,3 +32,8 @@ final theme = ThemeData(
   ),
   // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
 );
+
+final containerTheme = BoxDecoration(
+  color: Colors.black38,
+  borderRadius: BorderRadius.circular(20),
+);
