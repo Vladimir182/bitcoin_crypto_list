@@ -1,19 +1,20 @@
 part of 'crypto_coin_details_bloc.dart';
 
 @immutable
-class CryptoCoinDetailsState extends Equatable {
-  const CryptoCoinDetailsState();
+sealed class CryptoCoinDetailsState extends Equatable {}
 
+class CryptoCoinDetailInitial extends CryptoCoinDetailsState {
   @override
   List<Object?> get props => [];
 }
 
 class CryptoCoinDetailsLoading extends CryptoCoinDetailsState {
-  const CryptoCoinDetailsLoading();
+  @override
+  List<Object?> get props => [];
 }
 
 class CryptoCoinDetailsLoaded extends CryptoCoinDetailsState {
-  const CryptoCoinDetailsLoaded(this.coinDetails);
+  CryptoCoinDetailsLoaded({required this.coinDetails});
 
   final CryptoCoinDetail coinDetails;
 
@@ -22,10 +23,10 @@ class CryptoCoinDetailsLoaded extends CryptoCoinDetailsState {
 }
 
 class CryptoCoinDetailsLoadingFailure extends CryptoCoinDetailsState {
-  const CryptoCoinDetailsLoadingFailure(this.exception);
+  CryptoCoinDetailsLoadingFailure({required this.exception});
 
   final Object exception;
 
   @override
-  List<Object?> get props => super.props..add(exception);
+  List<Object?> get props => [exception];
 }

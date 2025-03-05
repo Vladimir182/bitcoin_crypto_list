@@ -14,7 +14,7 @@ class CryptoCoinScreen extends StatefulWidget {
 }
 
 class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
-  CryptoCoin? coin;
+  late String coin;
 
   final _coinDetailsBloc = CryptoCoinDetailsBloc(
     GetIt.I<AbstractCoinsRepository>(),
@@ -27,11 +27,13 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
     // Отримуємо аргументи
     final args = ModalRoute.of(context)?.settings.arguments;
     print("Arguments: $args (тип: ${args.runtimeType})");
-
     // Перевіряємо, чи аргументи є String
     if (args is String) {
+      setState(() {
+        coin = args;
+      });
       // Викликаємо API для отримання деталей
-      _coinDetailsBloc.add(LoadCryptoCoinDetails(currencyCode: args));
+      _coinDetailsBloc.add(LoadCryptoCoinDetails(currencyCode: coin));
     } else {
       print("Помилка: Очікувався String, отримано ${args.runtimeType}");
     }
@@ -40,18 +42,7 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: BlocBuilder<CryptoCoinDetailsBloc, CryptoCoinDetailsState>(
-          bloc: _coinDetailsBloc,
-          builder: (context, state) {
-            if (state is CryptoCoinDetailsLoaded) {
-              return Text(state.coinDetails.name);
-            } else {
-              return const Text("Завантаження...");
-            }
-          },
-        ),
-      ),
+      appBar: AppBar(title: Text(coin)),
       body: BlocBuilder<CryptoCoinDetailsBloc, CryptoCoinDetailsState>(
         bloc: _coinDetailsBloc,
         builder: (context, state) {

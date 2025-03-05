@@ -11,7 +11,7 @@ part 'crypto_coin_details_state.dart';
 class CryptoCoinDetailsBloc
     extends Bloc<CryptoCoinDetailsEvent, CryptoCoinDetailsState> {
   CryptoCoinDetailsBloc(this.coinsRepository)
-    : super(const CryptoCoinDetailsState()) {
+    : super(CryptoCoinDetailInitial()) {
     on<LoadCryptoCoinDetails>(_load);
   }
   final AbstractCoinsRepository coinsRepository;
@@ -22,16 +22,16 @@ class CryptoCoinDetailsBloc
   ) async {
     try {
       if (state is! CryptoCoinDetailsLoaded) {
-        emit(const CryptoCoinDetailsLoading());
+        emit(CryptoCoinDetailsLoading());
       }
 
       final coinDetails = await coinsRepository.getCoinDetails(
         event.currencyCode,
       );
 
-      emit(CryptoCoinDetailsLoaded(coinDetails));
+      emit(CryptoCoinDetailsLoaded(coinDetails: coinDetails));
     } catch (e) {
-      emit(CryptoCoinDetailsLoadingFailure(e));
+      emit(CryptoCoinDetailsLoadingFailure(exception: e));
     }
   }
 }
