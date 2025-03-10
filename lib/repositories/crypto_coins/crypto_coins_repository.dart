@@ -44,7 +44,6 @@ class CryptoCoinsRepository implements AbstractCoinsRepository {
 
   @override
   Future<CryptoCoinDetail> getCoinDetails(String currencyCode) async {
-    print(currencyCode);
     final response = await dio.get(
       '$_baseUrl/data/pricemultifull?fsyms=$currencyCode&tsyms=USD',
     );

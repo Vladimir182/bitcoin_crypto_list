@@ -26,7 +26,7 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
 
     // Отримуємо аргументи
     final args = ModalRoute.of(context)?.settings.arguments;
-    print("Arguments: $args (тип: ${args.runtimeType})");
+    // print("Arguments: $args (тип: ${args.runtimeType})");
     // Перевіряємо, чи аргументи є String
     if (args is String) {
       setState(() {
